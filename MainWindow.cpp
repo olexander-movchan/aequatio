@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MainWindow.hpp"
 #include "EquationSystem.hpp"
+#include "InterfaceXML.hpp"
 
 
 namespace Aequatio
@@ -67,7 +68,10 @@ namespace Aequatio
 
         try
         {
-            builder->add_from_file("../AequatioUI.glade");
+            // Swap comment for quicker debugging:
+
+            // builder->add_from_file("../AequatioUI.glade");
+            builder->add_from_string(InterfaceXML);
         }
         catch (Glib::FileError)
         {

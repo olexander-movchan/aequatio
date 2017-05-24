@@ -15,7 +15,7 @@ set(SOURCE_FILES
         MainWindow.cpp
         EquationSystem.cpp
         EquationSystem.hpp
-        )
+        InterfaceXML.hpp)
 
 add_executable(aequatio ${SOURCE_FILES})
 target_link_libraries(aequatio ${GTKMM_LIBRARIES} ${GTKMM_PLPLOT_LIBRARIES})

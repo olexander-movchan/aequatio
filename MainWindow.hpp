@@ -3,6 +3,7 @@
 
 
 #include <gtkmm.h>
+#include <gtkmm-plplot.h>
 
 
 namespace Aequatio
@@ -10,6 +11,11 @@ namespace Aequatio
     class MainWindow : public Gtk::Window
     {
     public:
+        /**
+         * @brief Constructor used by Gtk::Builder
+         * @param cobject Object to initialize Gtk::Window class
+         * @param builder GTK GUI builder
+         */
         MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder> &builder);
 
         /**
@@ -44,7 +50,20 @@ namespace Aequatio
             Gtk::Label *time;
         } jacobi, seidel;
 
+        Gtk::PLplot::Plot2D plot;
+        Gtk::PLplot::Canvas canvas;
+
         void compute();
+
+        /**
+         * @brief Initialize equation plot
+         */
+        void init_plot();
+
+        /**
+         * @brief Update plot (when coefficients changed)
+         */
+        void update_plot();
     };
 }
 

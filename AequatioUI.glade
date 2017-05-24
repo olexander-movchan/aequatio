@@ -75,7 +75,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid">
+          <object class="GtkGrid" id="Grid.Global">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="row_spacing">8</property>
@@ -456,18 +456,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinner" id="Spinner.Graphic">
-                <property name="width_request">200</property>
-                <property name="height_request">200</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkSeparator">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -550,7 +538,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Time (ms):</property>
+                    <property name="label" translatable="yes">Time (μs):</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -562,7 +550,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Time (ms):</property>
+                    <property name="label" translatable="yes">Time (μs):</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -731,6 +719,9 @@
                 <property name="top_attach">2</property>
               </packing>
             </child>
+            <child>
+              <placeholder/>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -783,12 +774,14 @@
       <placeholder/>
     </child>
   </object>
-  <object class="GtkMessageDialog" id="Dialog.NoSolution">
+  <object class="GtkMessageDialog" id="Dialog.WrongFormat">
     <property name="can_focus">False</property>
-    <property name="type">popup</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="type_hint">dialog</property>
-    <property name="text" translatable="yes">No solution found</property>
-    <property name="secondary_text" translatable="yes">System may have no solutions or bad inital values given</property>
+    <property name="transient_for">Window.Main</property>
+    <property name="text" translatable="yes">Parsing Error!</property>
+    <property name="secondary_text" translatable="yes">Wrong input format</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -828,11 +821,12 @@
       <placeholder/>
     </child>
   </object>
-  <object class="GtkMessageDialog" id="Dialog.WrongFormat">
+  <object class="GtkMessageDialog" id="Dialog.NoSolution">
     <property name="can_focus">False</property>
+    <property name="type">popup</property>
     <property name="type_hint">dialog</property>
-    <property name="text" translatable="yes">Parsing Error!</property>
-    <property name="secondary_text" translatable="yes">Wrong input format</property>
+    <property name="text" translatable="yes">No solution found</property>
+    <property name="secondary_text" translatable="yes">System may have no solutions or bad inital values given</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>

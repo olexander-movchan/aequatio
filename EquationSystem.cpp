@@ -1,5 +1,6 @@
 #include <cmath>
 #include <algorithm>
+#include <stdexcept>
 #include "EquationSystem.hpp"
 
 
@@ -15,14 +16,14 @@ namespace Aequatio
 
     double EquationSystem::f1(double x1, double x2)
     {
-        return std::sqrt(- (x1 * (b*x2 + c) + d) / a);
+        return (x1 < 0 ? -1 : 1) * std::sqrt(- (x1 * (b*x2 + c) + d) / a);
     }
 
 
     double EquationSystem::f2(double x1, double x2)
     {
         static const double ln10inv = 1.0 / std::log(10.0);
-        return std::sqrt(- (e*x1 + f*std::log(x1)*ln10inv + h) / g);
+        return (x2 < 0 ? -1 : 1) * std::sqrt(- (e*x1 + f*std::log(x1)*ln10inv + h) / g);
     }
 
 
@@ -46,6 +47,9 @@ namespace Aequatio
             {
                 break;
             }
+
+            if (std::isnan(x1) || std::isnan(x2) || std::isinf(x1) || std::isinf(x2))
+                throw std::runtime_error("Solution can't be found");
         }
 
         auto t_finish = std::chrono::steady_clock::now();
@@ -79,6 +83,9 @@ namespace Aequatio
             {
                 break;
             }
+
+            if (std::isnan(x1) || std::isnan(x2) || std::isinf(x1) || std::isinf(x2))
+                throw std::runtime_error("Solution can't be found");
         }
 
         auto t_finish = std::chrono::steady_clock::now();

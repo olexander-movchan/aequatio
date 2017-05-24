@@ -49,7 +49,7 @@ namespace Aequatio
             }
 
             if (std::isnan(x1) || std::isnan(x2) || std::isinf(x1) || std::isinf(x2))
-                throw std::runtime_error("Solution can't be found");
+                throw std::invalid_argument("Solution can't be found");
         }
 
         auto t_finish = std::chrono::steady_clock::now();
@@ -85,7 +85,7 @@ namespace Aequatio
             }
 
             if (std::isnan(x1) || std::isnan(x2) || std::isinf(x1) || std::isinf(x2))
-                throw std::runtime_error("Solution can't be found");
+                throw std::invalid_argument("Solution can't be found");
         }
 
         auto t_finish = std::chrono::steady_clock::now();

@@ -39,7 +39,6 @@ namespace Aequatio
         {
             Gtk::Dialog *wrong_format;
             Gtk::Dialog *no_solution;
-            Gtk::Dialog *about;
         } dialogs;
 
         struct

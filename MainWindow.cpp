@@ -9,9 +9,8 @@ namespace Aequatio
     MainWindow::MainWindow(BaseObjectType *cobject, const Glib::RefPtr<Gtk::Builder> &builder)
             : Gtk::Window(cobject), plot("x1", "x2")
     {
-        Gtk::MenuItem *menu_quit, *menu_about;
+        Gtk::MenuItem *menu_quit;
         builder->get_widget("Menu.Quit", menu_quit);
-        builder->get_widget("Menu.About", menu_about);
 
         menu_quit->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::close));
 
@@ -21,9 +20,6 @@ namespace Aequatio
 
         builder->get_widget("Dialog.WrongFormat", dialogs.wrong_format);
         builder->get_widget("Dialog.NoSolution", dialogs.no_solution);
-        builder->get_widget("Dialog.About", dialogs.about);
-
-        menu_about->signal_activate().connect(sigc::mem_fun(*(dialogs.about), &Gtk::Dialog::show));
 
         builder->get_widget("Entry.A", parameters.a);
         builder->get_widget("Entry.B", parameters.b);

@@ -44,29 +44,6 @@
                 </child>
               </object>
             </child>
-            <child>
-              <object class="GtkMenuItem">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">_Help</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem" id="Menu.About">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -735,53 +712,14 @@
       <placeholder/>
     </child>
   </object>
-  <object class="GtkMessageDialog" id="Dialog.About">
-    <property name="can_focus">False</property>
-    <property name="modal">True</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">Window.Main</property>
-    <property name="buttons">close</property>
-    <property name="text" translatable="yes">Aequatio</property>
-    <property name="secondary_use_markup">True</property>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="homogeneous">True</property>
-            <property name="layout_style">end</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-  </object>
-  <object class="GtkMessageDialog" id="Dialog.WrongFormat">
+  <object class="GtkMessageDialog" id="Dialog.NoSolution">
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">Window.Main</property>
-    <property name="text" translatable="yes">Parsing Error!</property>
-    <property name="secondary_text" translatable="yes">Wrong input format</property>
+    <property name="text" translatable="yes">No solution found</property>
+    <property name="secondary_text" translatable="yes">System may have no solutions or bad inital values given</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -821,12 +759,14 @@
       <placeholder/>
     </child>
   </object>
-  <object class="GtkMessageDialog" id="Dialog.NoSolution">
+  <object class="GtkMessageDialog" id="Dialog.WrongFormat">
     <property name="can_focus">False</property>
-    <property name="type">popup</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="type_hint">dialog</property>
-    <property name="text" translatable="yes">No solution found</property>
-    <property name="secondary_text" translatable="yes">System may have no solutions or bad inital values given</property>
+    <property name="transient_for">Window.Main</property>
+    <property name="text" translatable="yes">Parsing Error!</property>
+    <property name="secondary_text" translatable="yes">Wrong input format</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>

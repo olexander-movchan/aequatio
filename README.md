@@ -3,3 +3,5 @@
 
 * Jacobi (iterative) method;
 * Gauss-Seidel method.
+
+![UI Screenshot](images/screenshot.png)

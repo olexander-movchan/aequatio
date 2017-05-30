@@ -8,7 +8,7 @@ namespace Aequatio
 {
 
     MainWindow::MainWindow(BaseObjectType *cobject, const Glib::RefPtr<Gtk::Builder> &builder)
-            : Gtk::Window(cobject), plot("x1", "x2")
+            : Gtk::Window(cobject)
     {
         Gtk::MenuItem *menu_quit;
         builder->get_widget("Menu.Quit", menu_quit);
@@ -49,7 +49,7 @@ namespace Aequatio
         builder->get_widget("Grid.Global", global_grid);
         global_grid->attach(canvas, 0, 2, 1, 1);
         global_grid->show_all();
-        init_plot();
+        update_plot();
 
         parameters.a->signal_changed().connect(sigc::mem_fun(*this, &MainWindow::update_plot));
         parameters.b->signal_changed().connect(sigc::mem_fun(*this, &MainWindow::update_plot));
@@ -132,15 +132,18 @@ namespace Aequatio
             return;
         }
 
+        using std::chrono::duration_cast;
+        using std::chrono::microseconds;
+
         jacobi.solution->set_text(std::string("(") + std::to_string(j.x1) + ", " + std::to_string(j.x2) + ")");
         jacobi.iterations->set_text(std::to_string(j.iterations));
         jacobi.operations->set_text(std::to_string(j.operations));
-        jacobi.time->set_text(std::to_string(int(j.duration.count() * 1000000)));
+        jacobi.time->set_text(std::to_string(duration_cast<microseconds>(j.duration).count()));
 
         seidel.solution->set_text(std::string("(") + std::to_string(s.x1) + ", " + std::to_string(s.x2) + ")");
         seidel.iterations->set_text(std::to_string(s.iterations));
         seidel.operations->set_text(std::to_string(s.operations));
-        seidel.time->set_text(std::to_string(int(s.duration.count() * 1000000)));
+        seidel.time->set_text(std::to_string(duration_cast<microseconds>(s.duration).count()));
     }
 
 
@@ -165,32 +168,6 @@ namespace Aequatio
             return;
         }
 
-        // TODO: Update plot.
-    }
-
-
-    void MainWindow::init_plot()
-    {
-        double a, b, c, d;
-        double e, f, g, h;
-
-        try
-        {
-            a = std::stod(parameters.a->get_text());
-            b = std::stod(parameters.b->get_text());
-            c = std::stod(parameters.c->get_text());
-            d = std::stod(parameters.d->get_text());
-            e = std::stod(parameters.e->get_text());
-            f = std::stod(parameters.f->get_text());
-            g = std::stod(parameters.g->get_text());
-            h = std::stod(parameters.h->get_text());
-        }
-        catch (std::invalid_argument)
-        {
-            std::clog << "ERROR: Bad initial values" << std::endl;
-            std::exit(1);
-        }
-
         std::valarray<double> x(100);
         std::valarray<double> f1(100);
         std::valarray<double> f2p(100);
@@ -205,14 +182,22 @@ namespace Aequatio
             f2n[i] = - f2p[i];
         }
 
-        static Gtk::PLplot::PlotData2D A(x, f1, Gdk::RGBA("blue"));
-        static Gtk::PLplot::PlotData2D B(x, f2p, Gdk::RGBA("red"));
-        static Gtk::PLplot::PlotData2D C(x, f2n, Gdk::RGBA("red"));
+        auto A = Gtk::manage(new Gtk::PLplot::PlotData2D(x, f1, Gdk::RGBA("blue")));
+        auto B = Gtk::manage(new Gtk::PLplot::PlotData2D(x, f2p, Gdk::RGBA("red")));
+        auto C = Gtk::manage(new Gtk::PLplot::PlotData2D(x, f2n, Gdk::RGBA("red")));
 
-        plot.add_data(A);
-        plot.add_data(B);
-        plot.add_data(C);
 
-        canvas.add_plot(plot);
+        if (plot != nullptr)
+        {
+            canvas.remove_plot(*plot);
+        }
+
+        plot = Gtk::manage(new Gtk::PLplot::Plot2D(""));
+
+        plot->add_data(*A);
+        plot->add_data(*B);
+        plot->add_data(*C);
+
+        canvas.add_plot(*plot);
     }
 }

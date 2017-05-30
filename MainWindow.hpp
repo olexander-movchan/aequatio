@@ -49,15 +49,13 @@ namespace Aequatio
             Gtk::Label *time;
         } jacobi, seidel;
 
-        Gtk::PLplot::Plot2D plot;
+        Gtk::PLplot::Plot2D *plot = nullptr;
         Gtk::PLplot::Canvas canvas;
 
-        void compute();
-
         /**
-         * @brief Initialize equation plot
+         * @brief Find and show system solution
          */
-        void init_plot();
+        void compute();
 
         /**
          * @brief Update plot (when coefficients changed)
